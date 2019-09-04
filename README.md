@@ -1,6 +1,6 @@
 # mas-prog1
 
-To run server and test two messages:
+To run server on localhost:5000:
 ```export FLASK_APP=server.py
 cd server
 flask run
