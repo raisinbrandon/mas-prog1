@@ -5,9 +5,12 @@ To run server and test two messages:
 python3 test.py
 ```
 
+Instant Messaging App which communicates via a RESTful Server
+
+
 Notes
 
-* Very little error handling.  Client is expected to check for 200 return status from server.
+* Very little error handling in server; it just wasn't our focus.
 
 Server References
 
@@ -29,3 +32,7 @@ https://docs.sqlalchemy.org/en/13/orm/tutorial.html
 
 * REST *
 https://en.wikipedia.org/wiki/Representational_state_transfer
+
+* Dreamhost *
+configuring python on dreamhost.com
+https://help.dreamhost.com/hc/en-us/articles/115000702772-Installing-a-custom-version-of-Python-3#3.7.1
