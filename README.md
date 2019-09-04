@@ -5,6 +5,9 @@ To run server and test two messages:
 python3 test.py
 ```
 
+Notes
+
+* Very little error handling.  Client is expected to check for 200 return status from server.
 
 Server References
 
