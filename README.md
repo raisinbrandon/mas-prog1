@@ -2,10 +2,15 @@
 
 To run server and test two messages:
 ```export FLASK_APP=server.py
-python3 test.py
+cd server
+flask run
 ```
 
+Server is currently running on craigbros.com:28522.
+
 Instant Messaging App which communicates via a RESTful Server
+
+Use Postman to send GET and POST requests for testing.
 
 
 Notes

@@ -21,6 +21,8 @@ def clear_database():
 
     db.session.commit()
 
+    return {}
+
 # GET returns a list of all users; POST creates a single new user
 @app.route('/users', methods=['GET', 'POST'])
 def process_users():
