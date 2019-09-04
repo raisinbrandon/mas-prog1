@@ -1,5 +1,6 @@
 from flask import render_template, request, jsonify
 from app import app
+from app import db
 from app.models import User, Message
 from sqlalchemy import or_
 
@@ -42,16 +43,10 @@ def json_test():
     recipient = request_data['recipient']
     message = request_data['message']
 
-    #return "sender {} -> recipient {}: {}".format(sender, recipient, message)
-
     return jsonify(request_data)
 
-@app.route('/messages/get/<username>')
+@app.route('/messages/<username>')
 def get_messages(username):
-    # request_data = request.get_json()
-    # user = request_data['user']
-
-    # return all messages from/to user. sort them by timestamp so the correct ordering is maintained.
 
     print("username is {}".format(username))
 
@@ -72,3 +67,47 @@ def get_messages(username):
 
     return jsonify(message_list)
 
+@app.route('/messages', methods=['POST'])
+def create_message():
+    request_data = request.get_json()
+
+    print('sender', request_data['sender'])
+    print('recipient', request_data['recipient'])
+    print('messagee', request_data['message'])
+
+    sender = User.query.filter_by(username=request_data['sender']).first_or_404()
+    recipient = User.query.filter_by(username=request_data['recipient']).first_or_404()
+
+    message = Message(message=request_data['message'], sender=sender, recipient=recipient)
+
+    print(message)
+
+    db.session.add(message)
+    db.session.commit()
+
+    return jsonify(request_data)
+
+@app.route('/users', methods=['GET', 'POST'])
+def process_users():
+
+    if request.method == 'GET':
+        users = User.query.all()
+
+        user_list = []
+
+        for user in users:
+            details = {'username': user.username}
+            user_list.append(details)
+
+        return jsonify(user_list)
+
+    request_data = request.get_json()
+
+    print('adding user', request_data['username'])
+
+    user = User(username=request_data['username'])
+
+    db.session.add(user)
+    db.session.commit()
+
+    return jsonify(request_data)

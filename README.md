@@ -20,3 +20,9 @@ https://www.getpostman.com
 * Stack Overflow *
 flask.jsonify - flask module for creating JSON objects:
 https://stackoverflow.com/questions/13081532/return-json-response-from-flask-view
+
+* SQLAlchemy *
+https://docs.sqlalchemy.org/en/13/orm/tutorial.html
+
+* REST *
+https://en.wikipedia.org/wiki/Representational_state_transfer
