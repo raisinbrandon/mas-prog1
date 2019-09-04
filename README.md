@@ -1,7 +1,8 @@
 # mas-prog1
 
 To run server on localhost:5000:
-```export FLASK_APP=server.py
+```
+export FLASK_APP=server.py
 cd server
 flask run
 ```
