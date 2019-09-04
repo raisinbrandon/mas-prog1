@@ -4,44 +4,29 @@ from app import db
 from app.models import User, Message
 from sqlalchemy import or_
 
+# GET returns a list of all users; POST creates a single new user
+@app.route('/users', methods=['GET', 'POST'])
+def process_users():
 
-@app.route('/')
-@app.route('/index')
-def index():
-    user = {'username': 'darth-vader'}
-    return '''
-<html>
-    <head>
-        <title>Messaging App</title>
-    </head>
-    <body>
-        <h1>Hello, ''' + user['username'] + '''!</h1>
-    </body>
-</html>'''
+    if request.method == 'GET':
+        users = User.query.all()
 
-@app.route('/log')
-def log():
-    messages = [
-        {
-            'sender': {'username': 'Yoda'},
-            'recipient': {'username': 'Luke'},
-            'message': 'When nine hundred years old you reach, look as good you will not.'
-        },
-        {
-            'sender': {'username': 'Luke'},
-            'recipient': {'username': 'Yoda'},
-            'message': 'How long have you been butchering the English language?'
-        }
-    ]
-    return render_template('index.html', title='Log', messages=messages)
+        user_list = []
 
-@app.route('/json-test', methods=['POST'])
-def json_test():
+        for user in users:
+            details = {'username': user.username}
+            user_list.append(details)
+
+        return jsonify(user_list)
+
     request_data = request.get_json()
 
-    sender = request_data['sender']
-    recipient = request_data['recipient']
-    message = request_data['message']
+    print('adding user', request_data['username'])
+
+    user = User(username=request_data['username'])
+
+    db.session.add(user)
+    db.session.commit()
 
     return jsonify(request_data)
 
@@ -87,27 +72,3 @@ def create_message():
 
     return jsonify(request_data)
 
-@app.route('/users', methods=['GET', 'POST'])
-def process_users():
-
-    if request.method == 'GET':
-        users = User.query.all()
-
-        user_list = []
-
-        for user in users:
-            details = {'username': user.username}
-            user_list.append(details)
-
-        return jsonify(user_list)
-
-    request_data = request.get_json()
-
-    print('adding user', request_data['username'])
-
-    user = User(username=request_data['username'])
-
-    db.session.add(user)
-    db.session.commit()
-
-    return jsonify(request_data)
