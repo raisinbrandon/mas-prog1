@@ -1,0 +1,11 @@
+<html>
+    <head>
+        <title>Message Log</title>
+    </head>
+    <body>
+        <h1>Message Log:</h1>
+        {% for message in messages %}
+        <div><p><b>{{ message.sender.username }} -> {{ message.sender.username }}: </b>{{ message.message }}</p></div>
+        {% endfor %}
+    </body>
+</html>
